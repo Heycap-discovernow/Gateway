@@ -1,6 +1,6 @@
 import { Controller, Post, Inject, Body, Res, HttpStatus } from "@nestjs/common";
 import { ClientProxy } from "@nestjs/microservices";
-import { ContactRequestDTO } from "src/user/application/dtos/ContactRequestDTO";
+import { ContactRequestDTO } from "src/user/application/dtos/request/ContactRequestDTO";
 import { lastValueFrom } from "rxjs";
 import { Response } from "express";
 import * as Opossum from 'opossum';
@@ -18,7 +18,7 @@ export class CreateContactController {
         try {
           const result = await lastValueFrom(this.client.send('create-contact', contact));
           resolve(result);
-        } catch (error) {
+        } catch (error) {  
           reject(error);
         }
       });

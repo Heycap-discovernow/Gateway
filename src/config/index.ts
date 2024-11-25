@@ -5,3 +5,4 @@ config();
 export const PORT = Number(process.env.PORT);
 export const NATS_SERVER = process.env.NATS_SERVER;
 export const API_VERSION = process.env.API_VERSION;
+export const JWT_KEY = process.env.JWT_KEY;
