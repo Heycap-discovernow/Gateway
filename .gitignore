@@ -1,7 +1,9 @@
 # compiled output
-/dist
+# /dist
 /node_modules
 /build
+/src
+/test
 
 # Logs
 logs
@@ -14,6 +16,14 @@ lerna-debug.log*
 
 # OS
 .DS_Store
+.eslintcrc.js
+.gitignore
+.prettierrc
+README.md
+nest-cli.json
+package-lock.json
+tsconfig.build.json
+tsconfig.json
 
 # Tests
 /coverage
