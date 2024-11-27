@@ -12,22 +12,21 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.VerifyNumberController = void 0;
+exports.GetUserByIdController = void 0;
 const common_1 = require("@nestjs/common");
 const microservices_1 = require("@nestjs/microservices");
 const rxjs_1 = require("rxjs");
 const AccesTokenAuthGuard_1 = require("../../../guards/AccesTokenAuthGuard");
-const AccessToken_1 = require("../../../../../decorators/AccessToken");
 const BaseResponse_1 = require("../../../../application/dtos/response/BaseResponse");
-let VerifyNumberController = class VerifyNumberController {
+let GetUserByIdController = class GetUserByIdController {
     constructor(client) {
         this.client = client;
     }
-    async verifyNumber(code, accessToken, res) {
+    async searchUser(uuid, res) {
         try {
-            const result = await (0, rxjs_1.lastValueFrom)(this.client.send('verify-number-register', { token: accessToken, code: code }));
+            const result = await (0, rxjs_1.lastValueFrom)(this.client.send('get-user-by-id', uuid));
             if (!result) {
-                throw new microservices_1.RpcException('Code not verified');
+                throw new microservices_1.RpcException('User not found');
             }
             const response = new BaseResponse_1.BaseResponse(result, true, result.message);
             res.status(common_1.HttpStatus.OK).json(response.toResponseEntity());
@@ -38,20 +37,19 @@ let VerifyNumberController = class VerifyNumberController {
         }
     }
 };
-exports.VerifyNumberController = VerifyNumberController;
+exports.GetUserByIdController = GetUserByIdController;
 __decorate([
     (0, common_1.UseGuards)(AccesTokenAuthGuard_1.AccessTokenAuthGuard),
-    (0, common_1.Post)("/verifynumber/code"),
-    __param(0, (0, common_1.Body)('code')),
-    __param(1, (0, AccessToken_1.AccessToken)()),
-    __param(2, (0, common_1.Res)()),
+    (0, common_1.Get)("/:uuid"),
+    __param(0, (0, common_1.Param)('uuid')),
+    __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String, Object]),
+    __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", Promise)
-], VerifyNumberController.prototype, "verifyNumber", null);
-exports.VerifyNumberController = VerifyNumberController = __decorate([
+], GetUserByIdController.prototype, "searchUser", null);
+exports.GetUserByIdController = GetUserByIdController = __decorate([
     (0, common_1.Controller)("/users"),
     __param(0, (0, common_1.Inject)('USERS_TRANSPORT')),
     __metadata("design:paramtypes", [microservices_1.ClientProxy])
-], VerifyNumberController);
-//# sourceMappingURL=VerifyNumberController.js.map
+], GetUserByIdController);
+//# sourceMappingURL=GetByIdUser.js.map
