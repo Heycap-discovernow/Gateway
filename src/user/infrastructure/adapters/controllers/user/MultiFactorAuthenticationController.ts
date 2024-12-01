@@ -19,11 +19,13 @@ export class MultiFactorAuthenticationController {
     @Post("/login/code")
     public async mfaLogin(
         @Body('code') code: string,
+        @Body('user_uuid') user_uuid: string,
+        @Body('type') type: string,
         @AccessToken() accessToken: string,
         @Res() res: Response
     ) {
         try {
-            const result = await lastValueFrom(this.client.send('verify-number-login', { token: accessToken, code }));
+            const result = await lastValueFrom(this.client.send('verify-number-login', { code: code, user_uuid: user_uuid, type: type }));
             if (!result) {
                 throw new RpcException('Code not verified');
             }

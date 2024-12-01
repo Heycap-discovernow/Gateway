@@ -3,5 +3,5 @@ import { Response } from "express";
 export declare class VerifyNumberController {
     private readonly client;
     constructor(client: ClientProxy);
-    verifyNumber(code: string, phone: string, res: Response): Promise<void>;
+    verifyNumber(code: string, phone: string, type: string, res: Response): Promise<void>;
 }

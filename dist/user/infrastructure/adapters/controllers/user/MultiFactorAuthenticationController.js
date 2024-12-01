@@ -23,9 +23,9 @@ let MultiFactorAuthenticationController = class MultiFactorAuthenticationControl
     constructor(client) {
         this.client = client;
     }
-    async mfaLogin(code, accessToken, res) {
+    async mfaLogin(code, user_uuid, type, accessToken, res) {
         try {
-            const result = await (0, rxjs_1.lastValueFrom)(this.client.send('verify-number-login', { token: accessToken, code }));
+            const result = await (0, rxjs_1.lastValueFrom)(this.client.send('verify-number-login', { code: code, user_uuid: user_uuid, type: type }));
             if (!result) {
                 throw new microservices_1.RpcException('Code not verified');
             }
@@ -43,10 +43,12 @@ __decorate([
     (0, common_1.UseGuards)(AccesTokenAuthGuard_1.AccessTokenAuthGuard),
     (0, common_1.Post)("/login/code"),
     __param(0, (0, common_1.Body)('code')),
-    __param(1, (0, AccessToken_1.AccessToken)()),
-    __param(2, (0, common_1.Res)()),
+    __param(1, (0, common_1.Body)('user_uuid')),
+    __param(2, (0, common_1.Body)('type')),
+    __param(3, (0, AccessToken_1.AccessToken)()),
+    __param(4, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String, Object]),
+    __metadata("design:paramtypes", [String, String, String, String, Object]),
     __metadata("design:returntype", Promise)
 ], MultiFactorAuthenticationController.prototype, "mfaLogin", null);
 exports.MultiFactorAuthenticationController = MultiFactorAuthenticationController = __decorate([

@@ -21,9 +21,9 @@ let VerifyNumberController = class VerifyNumberController {
     constructor(client) {
         this.client = client;
     }
-    async verifyNumber(code, phone, res) {
+    async verifyNumber(code, phone, type, res) {
         try {
-            const result = await (0, rxjs_1.lastValueFrom)(this.client.send('verify-number-register', { code: code, phone: phone }));
+            const result = await (0, rxjs_1.lastValueFrom)(this.client.send('verify-number-register', { code: code, phone: phone, type: type }));
             if (!result) {
                 throw new microservices_1.RpcException('Code not verified');
             }
@@ -41,9 +41,10 @@ __decorate([
     (0, common_1.Post)("/verifynumber/code"),
     __param(0, (0, common_1.Body)('code')),
     __param(1, (0, common_1.Body)('phone')),
-    __param(2, (0, common_1.Res)()),
+    __param(2, (0, common_1.Body)('type')),
+    __param(3, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String, Object]),
+    __metadata("design:paramtypes", [String, String, String, Object]),
     __metadata("design:returntype", Promise)
 ], VerifyNumberController.prototype, "verifyNumber", null);
 exports.VerifyNumberController = VerifyNumberController = __decorate([

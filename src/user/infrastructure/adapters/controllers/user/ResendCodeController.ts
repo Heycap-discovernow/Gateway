@@ -1,4 +1,4 @@
-import { Controller, Get, Res, HttpStatus, Inject, Body } from "@nestjs/common";
+import { Controller, Post, Res, HttpStatus, Inject, Body } from "@nestjs/common";
 import { ClientProxy, RpcException } from "@nestjs/microservices";
 
 import { Response } from "express";
@@ -12,7 +12,7 @@ export class ResendCodeController {
         @Inject('USERS_TRANSPORT') private readonly client: ClientProxy
     ) { }
 
-    @Get("/verifynumber")
+    @Post("/verifynumber")
     public async resendCode(
         @Body("email") email: string,
         @Res() res: Response
